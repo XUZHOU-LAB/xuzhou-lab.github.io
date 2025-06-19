@@ -124,11 +124,11 @@ author:
 
   Contact: xu.zhou@childrens.harvard.edu"
 #  location         : "Somewhere"
-  email            :
+  #email            :
   links:
     - label: "Contact"
-     # icon: "fas fa-fw fa-envelope-square"
-     url: "mailto:yxu.zhou@childrens.harvard.edu"
+      # icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:yxu.zhou@childrens.harvard.edu"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
