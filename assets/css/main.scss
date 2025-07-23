@@ -7,3 +7,15 @@ search: false
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+// ---- Your overrides below ----
+$max-width: 1200px;        // overall page container
+$content-width: 900px;     // inner text column, tweak to taste
+$max-width-wide: 1400px;   // used when a page has .wide
+$max-width-wider: 1600px;  // used when a page has .wide.wider
+
+// Optional: ensure the container respects the new numbers
+.page,
+.page__inner {
+  max-width: $max-width;
+}

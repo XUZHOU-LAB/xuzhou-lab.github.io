@@ -5,6 +5,7 @@ title: "Getting Started"
 author_profile: true
 last_modified_at: 2022-05-27T11:59:26-04:00
 toc: true
+math: true
 ---
 
 <div style="font-size: 0.9rem; line-height: 1.55;" markdown="1">
@@ -46,51 +47,37 @@ An example dataset can be downloaded on the top of this page with the **Download
 
 #### Brief Model Overview
 
-The linear deconvolution of the signal interaction can be described mathematically as follows:
+The linear deconvolution can be written as **Y = Xβ + ε**.
 
-Y ~ $\beta$ * X + $\epsilon$
+Y =
+[ ctrl vs condA     ]
+[ condB vs condAB   ]
+[ ctrl vs condB     ]
+[ condA vs condAB   ]
+[ ctrl vs condAB    ]
 
+X =
+[ 0  1  0 ]
+[ 0  1  1 ]
+[ 1  0  0 ]
+[ 1  0  1 ]
+[ 1  1  1 ]
 
+β =
+[ β_condB ]
+[ β_condA ]
+[ β_condAB]
 
-
-$$\begin{bmatrix}
-ctrl \; vs \; condA\\ 
-condB \;vs \; condAB\\ 
-ctrl \; vs \; condB\\ 
-condA \; vs \;condAB\\ 
-ctrl \; vs \; condAB
-\end{bmatrix}
-=
-\begin{bmatrix}
-0 & 1 & 0\\ 
-0 & 1 & 1\\ 
-1 & 0 & 0\\ 
-1 & 0 & 1\\ 
-1 & 1 & 1
-\end{bmatrix}
-*
-\begin{bmatrix}
-\beta_{condB} \\ 
-\beta_{condA} \\ 
-\beta_{condAB}
-\end{bmatrix}
-+ 
-\begin{bmatrix}
-\epsilon_{ctrl/condA} \\ 
-\epsilon_{condB/condAB}\\ 
-\epsilon_{ctrl/condB} \\ 
-\epsilon_{condA/condAB} \\ 
-\epsilon_{ctrl/condAB}
-\end{bmatrix}$$
+ε =
+[ ε_ctrl/condA    ]
+[ ε_condB/condAB  ]
+[ ε_ctrl/condB    ]
+[ ε_condA/condAB  ]
+[ ε_ctrl/condAB   ]
 
 
-Where `Y` is a vector of the measured log fold change responses measured in the RNAseq experiment. We use 5 comparisons: 
+Here **Y** is the vector of measured log fold changes. The five comparisons are Control vs ConditionA, Control vs ConditionB, Control vs ConditionAB, ConditionAB vs ConditionA, and ConditionAB vs ConditionB.
 
-Control/ConditionA, 
-Control/ConditionB, 
-Control/ConditionAB, 
-ConditionAB/ConditionA, 
-ConditionAB/Condition
 
 More information on this method can be found in the 2011 paper by Zhou & O'Shea [2].
 
