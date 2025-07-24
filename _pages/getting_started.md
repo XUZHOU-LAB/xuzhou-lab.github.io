@@ -38,13 +38,13 @@ LinSig accepts data in CSV format (comma-separated values). Each row should repr
 
 Example column format:
 
-rownames	Ctrl_A	Ctrl_B	Cond1_A	Cond1_B	Cond2_A	Cond2_B	Cond12_A	Cond12_B
+rownames | Ctrl_1 | Ctrl_2 | CondA_1 | CondA_2 | CondB_1 | CondB_2 | CondAB_1 | CondAB_2
 
 Where:
-•	Ctrl_A, Ctrl_B = replicates for the control condition
-•	CondA_* = replicates for Condition A
-•	CondB_* = replicates for Condition B
-•	CondAB_* = replicates for Condition A + B combined
+- Ctrl_* = replicates for the control condition
+- CondA_* = replicates for Condition A
+- CondB_* = replicates for Condition B
+- CondAB_* = replicates for Condition A + B combined
 
 
 #### Workflow
