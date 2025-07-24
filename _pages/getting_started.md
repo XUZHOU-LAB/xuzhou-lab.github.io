@@ -8,27 +8,44 @@ toc: true
 math: true
 ---
 
-<div style="font-size: 0.9rem; line-height: 1.55;" markdown="1">
+<div style="font-size: 0.8rem; line-height: 1.55;" markdown="1">
 
 Use [our online tool](linsig_online.md) or [install it](installation.md).
-### LinSig Instructions
 
-This webapp is designed to deconvolute the interaction between 2 signals.
-By providing a RNAseq dataset of an experiment determined to study the interaction of two signals, the user can easily analyze and interact with the data.
 
-In order to do this, the experiment needs to consist of 4 RNAseq analyses, each having 2 replicates or more. The following analyses are required in the input dataset for this webapp.
+#### Overview
 
-* Control (> 2 replicates)
-* Condition A (> 2 replicates)
-* Condition B (> 2 replicates)
-* Condition A + B (> 2 replicates)
+LinSig is a web-based tool designed to help researchers identify and interpret how two biological signals interact at the transcriptomic level. By uploading RNA-seq data from a carefully designed experiment, users can explore how combinations of signals affect gene expression - beyond what would be expected from each signal alone.
 
-The input dataset needs to be a CSV file, with the columns structured in the following way:
+*Note: A future version will support analysis of interactions between three signals.*
 
-rownames | Ctrl_A | Ctrl_B | Cond1_A | Cond1_B | Cond2_A | Cond2_B | Cond12_A | Cond12_B
+#### Experimental Design Requirements
 
-Each row should contain the RNA count data (or TPM) for a gene.
-All rownames should be unique, duplicate genes are not allowed.
+To use LinSig, your experiment must be designed to evaluate the interaction between two distinct signals (for example, cytokines, drugs, or environmental cues). Specifically, your RNA-seq dataset should include **four conditions**, each with at least **two replicates**:
+•	Control (no signal)
+•	Condition A (signal A only)
+•	Condition B (signal B only)
+•	Condition A + B (both signals applied together)
+
+#### Input File Format
+
+LinSig accepts data in CSV format (comma-separated values). Each row should represent one gene, and each column should represent a sample (i.e., a replicate from one of the four conditions).
+•	The first column must contain the gene names or IDs (e.g., GeneSymbol or Ensembl ID). These must be unique—do not include duplicate gene entries.
+•	The remaining columns must contain RNA expression values (e.g., raw counts or TPMs) for each replicate.
+•	All conditions must have at least two replicates.
+•	Do not include any missing values or non-numeric entries.
+•	Ensure all row (gene) names are unique.
+
+Example column format:
+
+rownames	Ctrl_A	Ctrl_B	Cond1_A	Cond1_B	Cond2_A	Cond2_B	Cond12_A	Cond12_B
+
+Where:
+•	Ctrl_A, Ctrl_B = replicates for the control condition
+•	CondA_* = replicates for Condition A
+•	CondB_* = replicates for Condition B
+•	CondAB_* = replicates for Condition A + B combined
+
 
 #### Workflow
 
@@ -47,42 +64,64 @@ An example dataset can be downloaded on the top of this page with the **Download
 
 #### Brief Model Overview
 
-The linear deconvolution can be written as **Y = Xβ + ε**.
 
-Y =
-[ ctrl vs condA     ]
-[ condB vs condAB   ]
-[ ctrl vs condB     ]
-[ condA vs condAB   ]
-[ ctrl vs condAB    ]
+The LinSig algorithm uses a linear modeling approach to deconvolute the contributions of two individual signals (A and B) and their interaction to gene expression changes. Specifically, the model estimates how much of the observed gene expression change can be attributed to Signal A, Signal B, or their combined interaction.
 
-X =
-[ 0  1  0 ]
-[ 0  1  1 ]
-[ 1  0  0 ]
-[ 1  0  1 ]
-[ 1  1  1 ]
+The linear model is expressed as: **Y = Xβ + ε**.
 
-β =
-[ β_condB ]
-[ β_condA ]
-[ β_condAB]
+Where:
+- Y is a vector of observed log2 fold changes derived from RNA-seq comparisons.
+- X is the design matrix that maps each comparison to the modeled effects.
+- $$\beta$$ represents the estimated contributions of Signal A, Signal B, and their interaction (A×B).
+- $$\varepsilon$$ is the error term, capturing the variance not explained by the model.
 
-ε =
-[ ε_ctrl/condA    ]
-[ ε_condB/condAB  ]
-[ ε_ctrl/condB    ]
-[ ε_condA/condAB  ]
-[ ε_ctrl/condAB   ]
+
+$$ Y \sim \beta * X + \epsilon $$
+
+
+$$\begin{bmatrix}
+ctrl \; vs \; condA\\ 
+condB \;vs \; condAB\\ 
+ctrl \; vs \; condB\\ 
+condA \; vs \;condAB\\ 
+ctrl \; vs \; condAB
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 & 0\\ 
+0 & 1 & 1\\ 
+1 & 0 & 0\\ 
+1 & 0 & 1\\ 
+1 & 1 & 1
+\end{bmatrix}
+*
+\begin{bmatrix}
+\beta_{condB} \\ 
+\beta_{condA} \\ 
+\beta_{condAB}
+\end{bmatrix}
++ 
+\begin{bmatrix}
+\epsilon_{ctrl/condA} \\ 
+\epsilon_{condB/condAB}\\ 
+\epsilon_{ctrl/condB} \\ 
+\epsilon_{condA/condAB} \\ 
+\epsilon_{ctrl/condAB}
+\end{bmatrix}$$
 
 
 Here **Y** is the vector of measured log fold changes. The five comparisons are Control vs ConditionA, Control vs ConditionB, Control vs ConditionAB, ConditionAB vs ConditionA, and ConditionAB vs ConditionB.
 
 
-More information on this method can be found in the 2011 paper by Zhou & O'Shea [2].
+#### Model Evaluation and Output
 
-The covariance matrix of the linear model is used to calculate the P-value of the fit for each gene. 
-Each gene fit also comes with an R2 value, which can be used as a filter to discard model fits with high unexplained variance.
+For each gene, LinSig fits this model and estimates the contribution of each component. The model fit is evaluated using:
+•	P-value: derived from the covariance matrix of the linear regression; reflects statistical confidence in the model fit.
+•	R² (coefficient of determination): quantifies how much of the variation in the observed data is explained by the model. Genes with low R² values may be filtered out due to poor model fit.
+
+More detailed description of this modeling framework can be found in 
+-	[Wu et. al, Cell, 2025.](https://pmc.ncbi.nlm.nih.gov/articles/PMC11118380/)
+-	[Zhou & O’Shea, Molecular Cell, 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3127084/).
 
 ----
 
@@ -106,7 +145,10 @@ Each gene fit also comes with an R2 value, which can be used as a filter to disc
 
 - **Compute FDR**: Compute the false discover statistics using random sampling non-parametric approach.
 
+
 #### Explanation of the output results
+
+Once your dataset is uploaded and analyzed, LinSig provides several interactive visualizations and result tables to help interpret signal-specific and combinatorial gene regulation. Below is a guide to each tab in the results interface:
 
 - **Home page**: Here you will find a datatable with all the significant genes in the dataset. It's possible to download this dataset at the bottom left of the page. There's also an informative Venn diagram that demonstrates how many genes are regulated by signal A/B/AB or a combination thereof.
 
@@ -127,15 +169,16 @@ Each gene fit also comes with an R2 value, which can be used as a filter to disc
 For questions, issues or suggestions:
 
 sybren.bouwman@gmail.com
+diana.leung@childrens.harvard.edu
 
 http://www.xuzhoulab.com
 
 
-[1]. This dataset is reduced RNAseq dataset derived from the following paper: *Predicting gene level sensitivity to JAK-STAT signaling perturbation using a mechanistic-to-machine learning framework.
-Neha Cheemalavagu, Karsen E. Shoger, Yuqi M. Cao, Brandon A. Michalides, Samuel A. Botta, James R. Faeder, Rachel A. Gottschalk
-bioRxiv 2023.05.19.541151; doi: https://doi.org/10.1101/2023.05.19.541151*
+[1]. This dataset is reduced RNAseq dataset derived from the following paper: *Predicting gene level sensitivity to JAK-STAT signaling perturbation using a mechanistic-to-machine learning framework. Neha Cheemalavagu, Karsen E. Shoger, Yuqi M. Cao, Brandon A. Michalides, Samuel A. Botta, James R. Faeder, Rachel A. Gottschalk bioRxiv 2023.05.19.541151; doi: https://doi.org/10.1101/2023.05.19.541151*
 
-[2]. *Zhou X, O'Shea EK. Integrated approaches reveal determinants of genome-wide binding and function of the transcription factor Pho4. 
-Mol Cell. 2011 Jun 24;42(6):826-36. doi: 10.1016/j.molcel.2011.05.025. PMID: 21700227; PMCID: PMC3127084.*
+[2]. *Zhou X, O'Shea EK. Integrated approaches reveal determinants of genome-wide binding and function of the transcription factor Pho4.
+Mol Cell. 2011 Jun 24;42(6):826-36. doi: 10.1016/j.molcel.2011.05.025. PMID: 21700227; PMCID: PMC3127084.**
+
+[3]. *Wu Z, Pope SD, Ahmed NS, Leung DL, Hajjar S, Yue Q, Anand DM, Kopp EB, Okin D, Ma W, Kagan JC, Hargreaves DC, Medzhitov R, Zhou X. Control of Inflammatory Response by Tissue Microenvironment. bioRxiv [Preprint]. 2025 May 30:2024.05.10.592432. doi: 10.1101/2024.05.10.592432. PMID: 38798655; PMCID: PMC11118380.*
 
 </div>

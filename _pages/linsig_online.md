@@ -9,6 +9,8 @@ toc: true
 
 <small>[Download the example dataset](IL6IL10_reduced_df.csv)</small>
 
+<small>_The app below may take a moment to load._</small>
+
 
 <iframe src="https://dll110.shinyapps.io/zhou_methodapp_truncated/" 
         width="100%" height="800px" frameborder="0">

@@ -20,17 +20,17 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 # Site Settings
 locale                   : "en-US"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "LinSig"
-title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Your Name"
-description              : "An amazing website."
+title                    : #"Linear Deconvolution Transcriptomic Analysis to Uncover Signal Interactions"
+title_separator          : #"-"
+subtitle                 : #"Linear Deconvolution Transcriptomic Analysis to Uncover Signal Interactions" # site tagline that appears below site title in masthead
+name                     : #"Your Name"
+description              : #"An amazing website."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
+masthead_title           : "Linear Deconvolution Transcriptomic Analysis to Uncover Signal Interactions"# overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : # true, false (default)
 words_per_minute         : 200
 enable_copy_code_button  : # true, false (default)
@@ -116,32 +116,31 @@ analytics:
 
 # Site Author
 author:
-  name             : "Links"
+  name             : "Resources"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Manuscript: [link to manuscript]
+  bio              : |-
+    **Manuscript:** [in preparation]
 
-  Github: https://github.com/XUZHOU-LAB/LinSig/tree/master
-
-  Questions/issues?
-
-  Contact: xu.zhou@childrens.harvard.edu"
+    **Github:** [XUZHOU-LAB/LinSig](https://github.com/XUZHOU-LAB/LinSig/tree/master)
+    
+    **Contact:** <mailto:xu.zhou@childrens.harvard.edu>
 #  location         : "Somewhere"
   #email            :
-  links:
-    - label: "Contact"
+  #links:
+    #- label: "Contact"
       # icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:yxu.zhou@childrens.harvard.edu"
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
+      #url: "mailto:yxu.zhou@childrens.harvard.edu"
+    #- label: "Website"
+      #icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+    #- label: "GitHub"
+      #icon: "fab fa-fw fa-github"
       # url: "https://github.com/"
-    - label: "Instagram"
+    #- label: "Instagram"
 
 
 # Site Footer
-footer:
+#footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
@@ -162,6 +161,8 @@ footer:
       icon: "fab fa-fw fa-instagram"
       # url:
 
+footer_scripts:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 # Reading Files
 include:
@@ -328,6 +329,7 @@ defaults:
       comments: # true
       share: true
       related: true
+      mathjax: true
 
 include: ["_pages"] 
 
