@@ -10,9 +10,9 @@ toc: true
 <div style="font-size: 0.8rem; line-height: 1.55;" markdown="1">
 
 
-Mammalian tissues comprise intricate networks of interacting cells that dynamically respond to physiological and pathological changes in the tissue microenvironment (1). A diverse array of signals, including cellular factors (e.g. growth factors, cytokines, metabolites), chemical cues (e.g. pH, O2, osmolarity) and physical stimuli (e.g. space constraints, stiffness), regulates essential processes such as cellular growth, differentiation, migration, and adaptive responses (2–5).
+Mammalian tissues comprise intricate networks of interacting cells that dynamically respond to physiological and pathological changes in the tissue microenvironment. A diverse array of signals, including cellular factors (e.g. growth factors, cytokines, metabolites), chemical cues (e.g. pH, O2, osmolarity) and physical stimuli (e.g. space constraints, stiffness), regulates essential processes such as cellular growth, differentiation, migration, and adaptive responses.
 
-For tissues to function optimally, cells must simultaneously detect and integrate these heterogeneous inputs, orchestrating coordinated programs for organ development, tissue repair and defense against noxious stimuli (6–8). Importantly, the integrated response often transcends the simple sum of individual pathways, reflecting the epistatic nature of complex signaling and gene regulatory networks. Despite this, most investigations have focused on single stimuli or perturbations, leaving a critical gap in our understanding of how cells collectively and quantitatively process multifaceted signals (9–11).
+For tissues to function optimally, cells must simultaneously detect and integrate these heterogeneous inputs, orchestrating coordinated programs for organ development, tissue repair and defense against noxious stimuli. Importantly, the integrated response often transcends the simple sum of individual pathways, reflecting the epistatic nature of complex signaling and gene regulatory networks. Despite this, most investigations have focused on single stimuli or perturbations, leaving a critical gap in our understanding of how cells collectively and quantitatively process multifaceted signals.
 
 Using the primordial version of LinSig, our work (Wu et. al, Cell 2025) has found that acidic pH environment substantially impact how macrophages respond to the microbial cues (Lipopolysaccharide, LPS). This model conceptualizes that two signals, such as LPS stimulation and acidic pH, control gene expression through three possible logics: LPS regulation independent of pH (LPS), pH regulation independent of LPS (pH), and the synergistic or antagonistic regulation between LPS and pH (INT). The combinations of these three regulations (referred to as “expression components”) contribute to gene expression among all experimental conditions (Figure 1). Applying a linear deconvolution model allows assessing them simultaneously and quantitatively for each gene (Figure 2).  
 
@@ -31,7 +31,7 @@ Overall, more than 92% of differentially expressed genes were well captured usin
 <div align="center" markdown="1">_Figure 3. Heatmap of inflammatory genes with model-inferred expression components (left) and p-value (right)._ 
 </div>
 
-<center><img src="../documents/phlps_gene_expression_components.png" title="gene_expression_components" style='width: 600px; height:300px;'/></center>
+<center><img src="../documents/phlps_gene_expression_components.png" title="gene_expression_components" style='width: 600px; height:400px;'/></center>
 <div align="center" markdown="1">_Figure 4. Gene examples of 20 clusters identified by gene expression components._
 </div>
 
