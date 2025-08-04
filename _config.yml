@@ -321,7 +321,7 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: post
     values:
       layout: single
       author_profile: false
@@ -330,6 +330,7 @@ defaults:
       share: true
       related: true
       mathjax: true
+      classes: wide
 
 include: ["_pages"] 
 

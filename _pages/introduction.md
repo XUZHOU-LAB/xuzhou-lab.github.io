@@ -7,8 +7,6 @@ last_modified_at: 2022-05-27T11:59:26-04:00
 toc: true
 ---
 
-<div style="font-size: 0.8rem; line-height: 1.55;" markdown="1">
-
 
 Mammalian tissues comprise intricate networks of interacting cells that dynamically respond to physiological and pathological changes in the tissue microenvironment. A diverse array of signals, including cellular factors (e.g. growth factors, cytokines, metabolites), chemical cues (e.g. pH, O2, osmolarity) and physical stimuli (e.g. space constraints, stiffness), regulates essential processes such as cellular growth, differentiation, migration, and adaptive responses.
 
@@ -48,4 +46,3 @@ These differentially expression lead to our discovery that BRD4 condensates act 
 <div align="center" markdown="1">_Figure 6: STED imaging of BRD4 and MED1 condensates in BMDMs. At pH 7.4, endogenous BRD4 and MED1 formed condensates and co-localized in BMDMs. At pH 6.5, however, these condensates were substantially reduced. The remaining puncta of BRD4 and MED1 were partitioned spatially, contrasting with the strong colocalization seen at pH 7.4. This leads to disruption of transcriptional condensates that are critical for gene activation._ 
 </div>
 
-</div>

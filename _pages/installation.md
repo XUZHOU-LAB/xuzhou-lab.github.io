@@ -7,8 +7,6 @@ last_modified_at: 2022-05-27T11:59:26-04:00
 toc: true
 ---
 
-<div style="font-size: 0.8rem; line-height: 1.55;" markdown="1">
-
 In terminal:
 
 1. Download the repository:
@@ -25,4 +23,3 @@ Then in RStudio:
 4. Install relevant R libraries.
 5. Click 'Run App'.
 
-</div>
